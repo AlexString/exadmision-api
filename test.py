@@ -5,7 +5,7 @@ def output(num):
 	
 
 def main():
-	number = sys.argv[1]
+	number = int(sys.argv[1])
 	print(output(number))
 
 main()
