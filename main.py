@@ -1,48 +1,18 @@
-from api import ExadmisionApi
+import sys, json, pandas as pd
+# from pprint import pprint
 
-import sys
-import re
-
-import json
-import pandas as pd
-
-from pprint import pprint
-
-from src.Question.question import Question
-
-def test_question():
-	myQuestion = Question(1,1,'Descripcion','12-24',2)
-	myQuestion.set_answers(23.1,[23,20,19])
-
-	pprint(json.dumps(myQuestion.__dict__,ensure_ascii=False))
-
-	print('\n')
-
-	myQuestion.transform_jsonable()
-	pprint(json.dumps(myQuestion.__dict__,ensure_ascii=False))
-
-def test_commands():
-	def test_pandas_venv():
-		df = pd.DataFrame({'animal': ['alligator', 'bee', 'falcon', 'lion',
-                   'monkey', 'parrot', 'shark', 'whale', 'zebra']})
-		print(df.head())
-
-	test_pandas_venv()
-
-
-#test_question()
-#test_commands()
+# from api import ExadmisionApi
 
 def main():
-	exadmision_api = ExadmisionApi('file/path')
-	url_parameter = sys.argv[1]
+	system_arguments = sys.argv[1:]
+	#exadmision_api = ExadmisionApi('./data/filename.csv')
 
-	if url_parameter == 'questions':
-		return exadmision_api.get_questions()
+	print(system_arguments)
 
-	if re.search("questions?", url_parameter) != None:
-		url_parameter = url_parameter.replace('questions?','')
-		formula_ids = url_parameter.split(',')
+	if len(system_arguments) == 0:
+		print('No arguments provided')
 
-		exadmision_api.give_priorization_on_ids(formula_ids)
-		return exadmision_api.get_questions()
+	if len(system_arguments) != 2:
+		print('more than 1 argument sent')
+	
+main()

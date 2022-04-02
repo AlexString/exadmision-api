@@ -1,13 +1,15 @@
 import { PythonShell } from 'python-shell';
 
 export default class ExadmisionApi {
-	constructor() {
-		this.pythonScriptName = 'test.py';
+	constructor(scriptName, mode, pythonBin) {
+		this.pythonScriptName = scriptName;
+		this.mode = mode;
+		this.pythonBin = pythonBin;
 		this.args = [];
 
 		this.options = {
-			mode: 'json',
-			pythonPath: './venv/bin/python', // python venv path
+			mode: this.mode,
+			pythonPath: this.pythonBin, // python venv path
 			pythonOptions: ['-u'], // get print results in real-time
 			scriptPath: './',
 			args: this.args,
@@ -19,13 +21,15 @@ export default class ExadmisionApi {
 				if (err) throw err;
 
 				console.log('Output:');
-				console.log(result.pop());
-				//res.send(result.toString());
+				result.forEach(message => {
+					console.log(message);
+				});
 			});
 		};
 		console.log('Calling python script');
 		callPythonScript();
 	};
+
 	getQuestions = () => {
 		this._callPythonScript();
 	};
