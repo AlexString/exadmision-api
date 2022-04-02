@@ -1,11 +1,22 @@
 import ExadmisionApi from './exadmisionApi.js';
 
 function main() {
-	let api = new ExadmisionApi('main.py', 'text', './venv/bin/python');
-	api.getQuestions();
+	const getResults = async () => {
+		let result = await api.getQuestions();
+		console.log('Python script without arguments output:');
+		console.log(result);
 
-	const questions = ['mult', 'sum', 'factor'];
-	api.getQuestionsByIds(questions);
+		const questions = ['mult', 'sum', 'factor'];
+		result = await api.getQuestionsById(questions);
+		console.log('Python script with arguments output:');
+		result.forEach(message => {
+			console.log(message);
+		});
+	};
+
+	let api = new ExadmisionApi('main.py', 'text', './venv/bin/python');
+
+	getResults();
 }
 
 main();

@@ -15,28 +15,26 @@ export default class ExadmisionApi {
 			args: this.args,
 		};
 	}
-	_callPythonScript = () => {
-		const callPythonScript = (req, res) => {
+
+	callPythonScript = () => {
+		return new Promise((resolve, reject) => {
 			PythonShell.run(this.pythonScriptName, this.options, (err, result) => {
-				if (err) throw err;
+				if (err) reject(err);
 
-				console.log('Output:');
-				result.forEach(message => {
-					console.log(message);
-				});
+				resolve(result);
 			});
-		};
-		console.log('Calling python script');
-		callPythonScript();
+		});
 	};
 
-	getQuestions = () => {
-		this._callPythonScript();
+	getQuestions = async () => {
+		let result = await this.callPythonScript();
+		return result;
 	};
 
-	getQuestionsByIds = ids => {
+	getQuestionsById = async ids => {
 		this.args.push(...ids);
-		this._callPythonScript();
+		let result = await this.callPythonScript();
 		this.args.length = 0;
+		return result;
 	};
 }
