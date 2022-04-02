@@ -16,7 +16,7 @@ function callPythonScript(req, res, next) {
 		args: [sum] //An argument which can be accessed in the script using sys.argv[1]
 	};
 
-	PythonShell.run('test.py', options, (err, result) => {
+	PythonShell.run('main.py', options, (err, result) => {
 		if (err) throw err;
 
 		// result is an array consisting of messages collected

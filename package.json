@@ -1,6 +1,7 @@
 {
   "name": "repo_python_javascript",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "start.js",
   "scripts": {
