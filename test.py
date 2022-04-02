@@ -1,11 +1,11 @@
 import sys
-
-def output(num):
-	return f'Output from Python {num*2}'
-	
+import json
 
 def main():
-	number = sys.argv[1]
-	print(output(number))
+	dictionary = {
+		'message': 'Hello World',
+		'source': 'python script test.py'
+	}
+	return json.dumps(dictionary)
 
-main()
+print(main())
